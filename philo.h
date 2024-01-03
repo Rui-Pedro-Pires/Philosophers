@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:51:27 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/03 16:46:03 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:20:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int	id;
+	int	number_of_meal;
 	struct timeval start_time;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t left_fork;
