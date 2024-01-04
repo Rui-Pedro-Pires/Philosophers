@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:04:16 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/04 16:45:17 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:55:58 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ long	gettime(t_philo *philo)
 void	finish_update(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->info);
-	if (philo->number_of_meal == philo->data->number_of_times_to_eat)
-		philo->finish = true;
+	if (philo->number_of_meal == philo->data->number_of_times_to_eat && philo->id % 2 != 0)
+		philo->data->finish = true;
 	pthread_mutex_unlock(&philo->data->info);
 }
 

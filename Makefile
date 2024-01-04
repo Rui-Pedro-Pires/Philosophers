@@ -2,7 +2,7 @@ SRC = finex.c philo.c rotine.c utils.c init.c
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -pthread -Wall -Werror -Wextra
+CFLAGS = -pthread -Wall -Werror -Wextra -fsanitize=address
 
 CC = cc
 
