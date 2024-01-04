@@ -1,4 +1,4 @@
-SRC = checkers.c philo.c rotine.c utils.c init.c
+SRC = finex.c philo.c rotine.c utils.c init.c
 
 OBJ = $(SRC:.c=.o)
 
