@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:04:16 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/04 16:55:58 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:42:07 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,34 @@ long	gettime(t_philo *philo)
 	return (endtime);
 }
 
-void	finish_update(t_philo *philo)
+int	finish_update(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->info);
-	if (philo->number_of_meal == philo->data->number_of_times_to_eat && philo->id % 2 != 0)
-		philo->data->finish = true;
-	pthread_mutex_unlock(&philo->data->info);
+	if (philo->number_of_meal == philo->data->number_of_times_to_eat)
+	{
+		philo->finish = true;
+		sleeping(philo);
+		thinking(philo);
+		return (1);
+	}	
+	return (0);
 }
 
-int	finish(t_philo *philo)
+int	check_starving(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->info);
+	long	last_meal;
+	long	current_time;
+	
+	last_meal = philo->last_meal.tv_sec * 1000 + philo->last_meal.tv_usec / 1000;
+	current_time = philo->data->current_time.tv_sec * 1000 + philo->data->current_time.tv_usec / 1000;
 	if (philo->data->finish == true)
+		return (1);
+	if (philo->data->time_to_die < (current_time - last_meal))
 	{
-		pthread_mutex_unlock(&philo->data->info);
+		philo->finish = true;
+		philo->data->finish = true;
+		printf("%ld %d died\n", gettime(philo), philo->id);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->data->info);
 	return (0);
 }
 

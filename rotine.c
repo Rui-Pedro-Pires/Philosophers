@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:31:19 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/04 16:43:14 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:34:57 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	eating(t_philo *philo)
 		printf("%ld %d has taken a fork\n", gettime(philo), philo->id);
 		printf("%ld %d is eating\n", gettime(philo), philo->id);
 		philo->number_of_meal++;
+		gettimeofday(&philo->last_meal, NULL);
 		usleep(philo->data->time_to_eat * 1000);
 	}
 	pthread_mutex_unlock(philo->right_fork);
@@ -44,16 +45,26 @@ void	*rotine(void *arg)
 	if (philo->id % 2 == 0)
 	{
 		eating(philo);
-		finish_update(philo);
+		if (check_starving(philo))
+			return (NULL);
+		if (finish_update(philo))
+			return (NULL);
 		sleeping(philo);
 	}
 	else
 		usleep(1 * 1000);
-	while (!finish(philo))
+	while (1)
 	{
+		if (check_starving(philo))
+			return (NULL);
 		thinking(philo);
+		if (check_starving(philo))
+			return (NULL);
 		eating(philo);
-		finish_update(philo);
+		if (check_starving(philo))
+			return (NULL);
+		if (finish_update(philo))
+			return (NULL);
 		sleeping(philo);
 	}
 	return (NULL);

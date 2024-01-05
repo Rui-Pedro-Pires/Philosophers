@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:51:27 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/04 16:56:03 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:17:44 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	int	id;
 	int	number_of_meal;
 	bool	finish;
+	struct timeval last_meal;
 	pthread_t	ph;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t left_fork;
@@ -72,9 +73,10 @@ void	finex_philos(t_philo *philos);
 //////////////////////////
 
 int	finish(t_philo *philo);
-void	finish_update(t_philo *philo);
+int	finish_update(t_philo *philo);
 int	ft_atoi(const char *str);
 long	gettime(t_philo *philo);
 void	check_meals(t_philo *philos);
+int	check_starving(t_philo *philo);
 
 #endif
