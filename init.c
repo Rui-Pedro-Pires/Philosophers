@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/08 16:53:05 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:01:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,18 @@ int	init_threads(t_philo *philos)
 	n = 0;
 	philos->data->current_time = gettime();
 	philos->data->start_time = gettime();
+	if (philos->data->numbers_of_philosophers == 1)
+	{
+		printf("%lld %d is thinking\n", philos->data->current_time - philos->data->start_time, philos[n].id);
+		ft_usleep(philos->data->time_to_die);
+		printf("%lld %d died\n", philos->data->current_time - philos->data->start_time + philos->data->time_to_die, philos[n].id);
+		return (1);
+	}
 	while (n < philos->data->numbers_of_philosophers)
 	{
 		philos[n].last_meal = gettime();
 		if (pthread_create(&philos[n].ph, NULL, &rotine, &philos[n]) != 0)
-			return (1);
+			return (2);
 		n++;
 	}
 	while (philos->data->finish == false)
@@ -81,7 +88,7 @@ int	init_threads(t_philo *philos)
 	while (n < philos->data->numbers_of_philosophers)
 	{
 		if (pthread_join(philos[n].ph, NULL) != 0)
-			return (2);
+			return (3);
 		n++;
 	}
 	return (0);
