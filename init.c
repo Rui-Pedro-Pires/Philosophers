@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/05 19:29:53 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:53:05 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_data	init_data(int argc, char **argv)
 	data.time_to_eat = ft_atoi(argv[3]);
 	data.time_to_sleep = ft_atoi(argv[4]);
 	data.finish = false;
-	pthread_mutex_init(&data.info, NULL);
 	if (argc == 6)
 		data.number_of_times_to_eat = ft_atoi(argv[5]);
 	else
@@ -43,7 +42,7 @@ t_philo	*init_philos(t_data *data)
 		philos[n].id = n + 1;
 		philos[n].data = data;
 		philos[n].number_of_meal = 0;
-		philos[n].finish = false;
+		philos[n].status = ALIVE;
 		if (n == data->numbers_of_philosophers - 1)
 		{
 			pthread_mutex_init(&philos[n].left_fork, NULL);
@@ -64,18 +63,19 @@ int	init_threads(t_philo *philos)
 	int	n;
 
 	n = 0;
-	gettimeofday(&philos->data->start_time, NULL);
-	gettimeofday(&philos->data->current_time, NULL);
+	philos->data->current_time = gettime();
+	philos->data->start_time = gettime();
 	while (n < philos->data->numbers_of_philosophers)
 	{
+		philos[n].last_meal = gettime();
 		if (pthread_create(&philos[n].ph, NULL, &rotine, &philos[n]) != 0)
 			return (1);
 		n++;
 	}
 	while (philos->data->finish == false)
 	{
-		check_meals(philos);
-		gettimeofday(&philos->data->current_time, NULL);
+		philos->data->current_time = gettime();
+		monitoring(philos);
 	}
 	n = 0;
 	while (n < philos->data->numbers_of_philosophers)

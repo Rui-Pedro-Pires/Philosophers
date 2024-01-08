@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:04:16 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/05 19:42:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:31:42 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,84 +15,79 @@
 int	ft_atoi(const char *str)
 {
 	int	i;
-	int	rec;
 	int	dest;
 
 	i = 0;
-	rec = 0;
 	dest = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
+	while (str[i])
 	{
-		rec = 1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
+		if (str[i] > '9' || str[i] < '0')
+			return (-1);
 		dest = dest * 10 + (str[i] - '0');
 		i++;
 	}
-	if (rec == 1)
-		return (dest *= -1);
 	return (dest);
 }
 
-long	gettime(t_philo *philo)
+long long	gettime(void)
 {
-	long endtime;
+	long long current_time;
+	struct timeval st;
 
-	endtime = (philo->data->current_time.tv_sec * 1000 + philo->data->current_time.tv_usec / 1000) 
-	- (philo->data->start_time.tv_sec * 1000 + philo->data->start_time.tv_usec / 1000);
-	return (endtime);
+	
+	gettimeofday(&st, NULL);
+	current_time = (long long)st.tv_sec * 1000 + (long long)st.tv_usec / 1000;
+	return (current_time);
 }
 
-int	finish_update(t_philo *philo)
-{
-	if (philo->number_of_meal == philo->data->number_of_times_to_eat)
-	{
-		philo->finish = true;
-		sleeping(philo);
-		thinking(philo);
-		return (1);
-	}	
-	return (0);
-}
-
-int	check_starving(t_philo *philo)
+int	monitoring(t_philo *philos)
 {
 	long	last_meal;
-	long	current_time;
-	
-	last_meal = philo->last_meal.tv_sec * 1000 + philo->last_meal.tv_usec / 1000;
-	current_time = philo->data->current_time.tv_sec * 1000 + philo->data->current_time.tv_usec / 1000;
-	if (philo->data->finish == true)
-		return (1);
-	if (philo->data->time_to_die < (current_time - last_meal))
-	{
-		philo->finish = true;
-		philo->data->finish = true;
-		printf("%ld %d died\n", gettime(philo), philo->id);
-		return (1);
-	}
-	return (0);
-}
-
-void	check_meals(t_philo *philos)
-{
 	int	n;
-	int	count;
-
+	int count;
+	
 	n = 0;
 	count = 0;
 	while (n < philos->data->numbers_of_philosophers)
 	{
-		if (philos[n].finish == true)
+		philos->data->current_time = gettime();
+		last_meal = philos[n].last_meal;
+		if (philos->data->time_to_die <= (philos->data->current_time - last_meal) && philos[n].status != EATING)
+		{
+			printf("%lld %d died\n", philos->data->current_time - philos->data->start_time, philos[n].id);
+			philos[n].status = DEAD;
+			philos->data->finish = true;
+			break;
+		}
+		if (philos->data->number_of_times_to_eat == philos[n].number_of_meal)
 			count++;
 		n++;
 	}
-	if (count == philos->data->numbers_of_philosophers)
+	if (philos->data->numbers_of_philosophers == count)
 		philos->data->finish = true;
+	return (0);
+}
+
+int    ft_usleep(long long milliseconds)
+{
+    long long    start;
+
+    start = gettime();
+    while ((gettime() - start) < milliseconds)
+        usleep(500);
+    return (0);
+}
+
+int	checker(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (ft_atoi(argv[i]) == -1)
+			return (0);
+		i++;
+	}
+	return (1);
 }

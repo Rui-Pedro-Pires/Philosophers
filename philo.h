@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:51:27 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/05 19:17:44 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:12:50 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
+# define ALIVE 1
+# define DEAD 2
+# define EATING 3
+# define SLEEPING 4
+# define THINKING 5
+
 typedef struct s_data
 {
-	pthread_mutex_t info;
-	struct timeval start_time;
-	struct timeval current_time;
+	long long start_time;
+	long long current_time;
 	int	numbers_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
@@ -37,8 +42,8 @@ typedef struct s_philo
 {
 	int	id;
 	int	number_of_meal;
-	bool	finish;
-	struct timeval last_meal;
+	int	status;
+	long last_meal;
 	pthread_t	ph;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t left_fork;
@@ -73,10 +78,11 @@ void	finex_philos(t_philo *philos);
 //////////////////////////
 
 int	finish(t_philo *philo);
-int	finish_update(t_philo *philo);
 int	ft_atoi(const char *str);
-long	gettime(t_philo *philo);
-void	check_meals(t_philo *philos);
-int	check_starving(t_philo *philo);
+long long	gettime(void);
+int	monitoring(t_philo *philos);
+int	dead_cheak(t_philo *philo);
+int    ft_usleep(long long milliseconds);
+int	checker(char **argv);
 
 #endif
