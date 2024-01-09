@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:31:19 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/08 17:01:53 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:58:51 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,74 @@
 
 void	eating(t_philo *philo)
 {
-	if (pthread_mutex_lock(philo->right_fork) == 0 && pthread_mutex_lock(&philo->left_fork) == 0 
-	&& philo->number_of_meal != philo->data->number_of_times_to_eat
-	&& philo->status != DEAD && philo->data->finish == false)
-	{
-		printf("%lld %d has taken a fork\n", philo->data->current_time - philo->data->start_time, philo->id);
-		printf("%lld %d has taken a fork\n", philo->data->current_time - philo->data->start_time, philo->id);
-		printf("%lld %d is eating\n", philo->data->current_time - philo->data->start_time, philo->id);
-		philo->status = EATING;
-		philo->last_meal = philo->data->current_time;
-		ft_usleep(philo->data->time_to_eat);
-		philo->number_of_meal++;
-	}
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(&philo->left_fork);
+	long long	start_time;
+	long long	current_time;
+
+	lock_forks(philo);
+	if (get_bool(&philo->data->info, &philo->data->finish) == true || \
+	get_info_int(&philo->philo, &philo->status) == DEAD
+		|| get_info_long(&philo->philo, &philo->number_of_meal) == \
+	philo->data->number_of_times_to_eat)
+		return (unlock_forks(philo));
+	set_info_long(&philo->data->info, &current_time, \
+		get_info_long(&philo->data->info, &philo->data->current_time));
+	set_info_long(&philo->data->info, &start_time, \
+		get_info_long(&philo->data->info, &philo->data->start_time));
+	printf("%lld %d has taken a fork\n", current_time - start_time, philo->id);
+	printf("%lld %d has taken a fork\n", current_time - start_time, philo->id);
+	printf("%lld %d is eating\n", current_time - start_time, philo->id);
+	set_info_int(&philo->philo, &philo->status, EATING);
+	set_info_long(&philo->data->info, &philo->last_meal, \
+		get_info_long(&philo->data->info, &philo->data->current_time));
+	set_info_long(&philo->philo, &philo->number_of_meal, \
+		(get_info_long(&philo->data->info, &philo->number_of_meal) + 1));
+	ft_usleep(philo->data->time_to_eat);
+	unlock_forks(philo);
 }
 
 void	sleeping(t_philo *philo)
 {
-	if (philo->status == EATING && philo->data->finish == false)
-	{
-		printf("%lld %d is sleeping\n", philo->data->current_time - philo->data->start_time, philo->id);
-		philo->status = SLEEPING;
-		ft_usleep(philo->data->time_to_sleep);
-	}
+	long long	start_time;
+	long long	current_time;
+
+	if (get_bool(&philo->data->info, &philo->data->finish) == true)
+		return ;
+	set_info_long(&philo->data->info, &current_time, \
+		get_info_long(&philo->data->info, &philo->data->current_time));
+	set_info_long(&philo->data->info, &start_time, \
+		get_info_long(&philo->data->info, &philo->data->start_time));
+	printf("%lld %d is sleeping\n", current_time - start_time, philo->id);
+	set_info_int(&philo->philo, &philo->status, SLEEPING);
+	ft_usleep(philo->data->time_to_sleep);
 }
 
 void	thinking(t_philo *philo)
 {
-	if (philo->data->finish == false && philo->status != THINKING)
-	{
-		printf("%lld %d is thinking\n", philo->data->current_time - philo->data->start_time, philo->id);
-		philo->status = THINKING;
-	}
+	long long	start_time;
+	long long	current_time;
+
+	if (get_bool(&philo->data->info, &philo->data->finish) == true)
+		return ;
+	set_info_long(&philo->data->info, &current_time, \
+		get_info_long(&philo->data->info, &philo->data->current_time));
+	set_info_long(&philo->data->info, &start_time, \
+		get_info_long(&philo->data->info, &philo->data->start_time));
+	printf("%lld %d is thinking\n", current_time - start_time, philo->id);
+	set_info_int(&philo->philo, &philo->status, THINKING);
 }
 
 void	*rotine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
+
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-	{
 		thinking(philo);
-		ft_usleep(1);
-	}
-	while (philo->data->finish == false)
+	while (get_bool(&philo->data->info, &philo->data->finish) == false)
 	{
-			eating(philo);
-			sleeping(philo);
-			thinking(philo);
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }

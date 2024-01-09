@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   finex.c                                            :+:      :+:    :+:   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 17:31:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 16:55:47 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/01/04 13:04:16 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/01/09 17:00:39 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	finex_threads(t_philo *philos)
+long long	gettime(void)
 {
-	int	n;
+	long long			current_time;
+	struct timeval		st;
 
-	n = 0;
-	while (n < philos->data->numbers_of_philosophers)
-	{
-		if (pthread_join(philos[n].ph, NULL) != 0)
-			return ;
-		n++;
-	}
-	n = 0;
-	while (n < philos->data->numbers_of_philosophers)
-	{
-		pthread_mutex_destroy(&philos[n].left_fork);
-		pthread_mutex_destroy(&philos[n].philo);
-		n++;
-	}
-	pthread_mutex_destroy(&philos->data->info);
-	free(philos);
+	gettimeofday(&st, NULL);
+	current_time = (long long)st.tv_sec * 1000 + (long long)st.tv_usec / 1000;
+	return (current_time);
+}
+
+int	ft_usleep(long long milliseconds)
+{
+	long long	start;
+
+	start = gettime();
+	while ((gettime() - start) < milliseconds)
+		usleep(500);
+	return (0);
 }

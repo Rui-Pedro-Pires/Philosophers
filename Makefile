@@ -1,8 +1,10 @@
-SRC = finex.c philo.c rotine.c utils.c init.c
+SRC = finex.c philo.c rotine.c \
+		time_utils.c init.c monitoring.c \
+		mutex_utils1.c mutex_utils2.c atoi.c checkers.c
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -pthread -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -pthread -Wall -Werror -Wextra -fsanitize=thread
 
 CC = cc
 

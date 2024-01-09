@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   finex.c                                            :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 17:31:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 16:55:47 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/01/09 16:17:26 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/01/09 18:04:00 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	finex_threads(t_philo *philos)
+int	ft_atoi(const char *str)
 {
-	int	n;
+	int	i;
+	int	dest;
 
-	n = 0;
-	while (n < philos->data->numbers_of_philosophers)
+	i = 0;
+	dest = 0;
+	while (str[i])
 	{
-		if (pthread_join(philos[n].ph, NULL) != 0)
-			return ;
-		n++;
+		if (str[i] > '9' || str[i] < '0')
+			return (-1);
+		dest = dest * 10 + (str[i] - '0');
+		i++;
 	}
-	n = 0;
-	while (n < philos->data->numbers_of_philosophers)
-	{
-		pthread_mutex_destroy(&philos[n].left_fork);
-		pthread_mutex_destroy(&philos[n].philo);
-		n++;
-	}
-	pthread_mutex_destroy(&philos->data->info);
-	free(philos);
+	return (dest);
 }

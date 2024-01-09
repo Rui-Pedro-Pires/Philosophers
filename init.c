@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/08 18:01:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:01:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_data	init_data(int argc, char **argv)
 	data.time_to_eat = ft_atoi(argv[3]);
 	data.time_to_sleep = ft_atoi(argv[4]);
 	data.finish = false;
+	pthread_mutex_init(&data.info, NULL);
 	if (argc == 6)
 		data.number_of_times_to_eat = ft_atoi(argv[5]);
 	else
@@ -31,7 +32,7 @@ t_data	init_data(int argc, char **argv)
 t_philo	*init_philos(t_data *data)
 {
 	t_philo	*philos;
-	int	n;
+	int		n;
 
 	n = 0;
 	philos = (t_philo *)malloc(sizeof(t_philo) * data->numbers_of_philosophers);
@@ -43,16 +44,12 @@ t_philo	*init_philos(t_data *data)
 		philos[n].data = data;
 		philos[n].number_of_meal = 0;
 		philos[n].status = ALIVE;
+		pthread_mutex_init(&philos[n].left_fork, NULL);
+		pthread_mutex_init(&philos[n].philo, NULL);
 		if (n == data->numbers_of_philosophers - 1)
-		{
-			pthread_mutex_init(&philos[n].left_fork, NULL);
 			philos[n].right_fork = &philos[0].left_fork;
-		}
 		else
-		{
-			pthread_mutex_init(&philos[n].left_fork, NULL);
 			philos[n].right_fork = &philos[n + 1].left_fork;
-		}
 		n++;
 	}
 	return (philos);
@@ -63,33 +60,23 @@ int	init_threads(t_philo *philos)
 	int	n;
 
 	n = 0;
+	if (philos->data->numbers_of_philosophers == 1)
+		return (mono_philo(philos));
 	philos->data->current_time = gettime();
 	philos->data->start_time = gettime();
-	if (philos->data->numbers_of_philosophers == 1)
-	{
-		printf("%lld %d is thinking\n", philos->data->current_time - philos->data->start_time, philos[n].id);
-		ft_usleep(philos->data->time_to_die);
-		printf("%lld %d died\n", philos->data->current_time - philos->data->start_time + philos->data->time_to_die, philos[n].id);
-		return (1);
-	}
 	while (n < philos->data->numbers_of_philosophers)
 	{
-		philos[n].last_meal = gettime();
+		set_info_long(&philos[n].philo, &philos[n].last_meal, \
+			get_info_long(&philos->data->info, &philos->data->current_time));
 		if (pthread_create(&philos[n].ph, NULL, &rotine, &philos[n]) != 0)
 			return (2);
 		n++;
 	}
-	while (philos->data->finish == false)
+	while (get_bool(&philos->data->info, &philos->data->finish) == false)
 	{
-		philos->data->current_time = gettime();
+		set_info_long(&philos->data->info, \
+			&philos->data->current_time, gettime());
 		monitoring(philos);
-	}
-	n = 0;
-	while (n < philos->data->numbers_of_philosophers)
-	{
-		if (pthread_join(philos[n].ph, NULL) != 0)
-			return (3);
-		n++;
 	}
 	return (0);
 }
