@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 13:04:16 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 17:00:39 by ruiolive         ###   ########.fr       */
+/*   Created: 2024/01/09 18:03:36 by ruiolive          #+#    #+#             */
+/*   Updated: 2024/01/09 18:26:26 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
-long long	gettime(void)
+int	checker(char **argv)
 {
-	long long			current_time;
-	struct timeval		st;
+	int	i;
 
-	gettimeofday(&st, NULL);
-	current_time = (long long)st.tv_sec * 1000 + (long long)st.tv_usec / 1000;
-	return (current_time);
+	i = 0;
+	while (argv[i])
+	{
+		if (ft_atoi(argv[i]) == -1)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-int	ft_usleep(long long milliseconds)
+int	mono_philo(t_philo *philos)
 {
-	long long	start;
-
-	start = gettime();
-	while ((gettime() - start) < milliseconds)
-		usleep(500);
-	return (0);
+	printf("%d %d is thinking\n", 0, philos[0].id);
+	ft_usleep(philos->data->time_to_die);
+	printf("%d %d died\n", philos->data->time_to_die, philos[0].id);
+	return (1);
 }

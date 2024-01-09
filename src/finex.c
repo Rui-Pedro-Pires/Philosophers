@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:31:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 16:55:47 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:16:49 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	finex_threads(t_philo *philos)
 {

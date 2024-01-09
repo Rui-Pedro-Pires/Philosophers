@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 18:01:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:35:59 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 t_data	init_data(int argc, char **argv)
 {

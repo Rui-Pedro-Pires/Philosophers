@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:11:33 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 17:01:38 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:17:06 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	get_info_int(pthread_mutex_t *mutex, int *info)
 {

@@ -1,6 +1,6 @@
-SRC = finex.c philo.c rotine.c \
-		time_utils.c init.c monitoring.c \
-		mutex_utils1.c mutex_utils2.c atoi.c checkers.c
+SRC = ./src/finex.c ./src/philo.c ./src/rotine.c \
+		./src/time_utils.c ./src/init.c ./src/monitoring.c \
+		./src/mutex_utils1.c ./src/mutex_utils2.c ./src/atoi.c ./src/checkers.c
 
 OBJ = $(SRC:.c=.o)
 

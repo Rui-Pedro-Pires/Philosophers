@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:17:26 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 18:04:00 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:16:40 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	ft_atoi(const char *str)
 {

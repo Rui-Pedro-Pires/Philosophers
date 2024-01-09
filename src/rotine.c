@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:31:19 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 17:58:51 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:42:15 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	eating(t_philo *philo)
 {
@@ -33,9 +33,9 @@ void	eating(t_philo *philo)
 	set_info_int(&philo->philo, &philo->status, EATING);
 	set_info_long(&philo->data->info, &philo->last_meal, \
 		get_info_long(&philo->data->info, &philo->data->current_time));
+	ft_usleep(philo->data->time_to_eat);
 	set_info_long(&philo->philo, &philo->number_of_meal, \
 		(get_info_long(&philo->data->info, &philo->number_of_meal) + 1));
-	ft_usleep(philo->data->time_to_eat);
 	unlock_forks(philo);
 }
 
@@ -44,7 +44,8 @@ void	sleeping(t_philo *philo)
 	long long	start_time;
 	long long	current_time;
 
-	if (get_bool(&philo->data->info, &philo->data->finish) == true)
+	if (get_bool(&philo->data->info, &philo->data->finish) == true || \
+		get_info_int(&philo->data->info, &philo->status) != EATING)
 		return ;
 	set_info_long(&philo->data->info, &current_time, \
 		get_info_long(&philo->data->info, &philo->data->current_time));
@@ -60,7 +61,8 @@ void	thinking(t_philo *philo)
 	long long	start_time;
 	long long	current_time;
 
-	if (get_bool(&philo->data->info, &philo->data->finish) == true)
+	if (get_bool(&philo->data->info, &philo->data->finish) == true || \
+		get_info_int(&philo->data->info, &philo->status) == THINKING)
 		return ;
 	set_info_long(&philo->data->info, &current_time, \
 		get_info_long(&philo->data->info, &philo->data->current_time));

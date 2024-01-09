@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:10:03 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 17:59:26 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:16:59 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	monitoring(t_philo *philos)
 {
@@ -32,6 +32,8 @@ int	monitoring(t_philo *philos)
 			get_info_long(&philos[n].philo, &philos[n].number_of_meal))
 			count++;
 		n++;
+		set_info_long(&philos->data->info, \
+			&philos->data->current_time, gettime());
 	}
 	if (philos->data->numbers_of_philosophers == count)
 		set_bool(&philos->data->info, &philos->data->finish, true);

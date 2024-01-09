@@ -6,11 +6,11 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:55:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 17:59:07 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:17:17 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	main(int argc, char **argv)
 {
