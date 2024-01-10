@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:51:27 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 18:04:12 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:34:23 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				number_of_times_to_eat;
 	bool			finish;
+	bool			done;
 	pthread_mutex_t	info;
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 18:35:59 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:55:46 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_data	init_data(int argc, char **argv)
 	data.time_to_eat = ft_atoi(argv[3]);
 	data.time_to_sleep = ft_atoi(argv[4]);
 	data.finish = false;
+	data.done = false;
 	pthread_mutex_init(&data.info, NULL);
 	if (argc == 6)
 		data.number_of_times_to_eat = ft_atoi(argv[5]);
@@ -72,6 +73,7 @@ int	init_threads(t_philo *philos)
 			return (2);
 		n++;
 	}
+	set_bool(&philos->data->info, &philos->data->done, true);
 	while (get_bool(&philos->data->info, &philos->data->finish) == false)
 	{
 		set_info_long(&philos->data->info, \

@@ -6,11 +6,28 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:31:19 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/09 18:42:15 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:06:48 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	*rotine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	// while (get_bool(&philo->data->info, &philo->data->done) == false)
+	// 	;
+	thinking(philo);
+	while (get_bool(&philo->data->info, &philo->data->finish) == false)
+	{
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
+	}
+	return (NULL);
+}
 
 void	eating(t_philo *philo)
 {
@@ -70,20 +87,4 @@ void	thinking(t_philo *philo)
 		get_info_long(&philo->data->info, &philo->data->start_time));
 	printf("%lld %d is thinking\n", current_time - start_time, philo->id);
 	set_info_int(&philo->philo, &philo->status, THINKING);
-}
-
-void	*rotine(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		thinking(philo);
-	while (get_bool(&philo->data->info, &philo->data->finish) == false)
-	{
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
-	}
-	return (NULL);
 }
