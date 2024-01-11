@@ -5,6 +5,12 @@
         "functional": "c",
         "tuple": "c",
         "utility": "c",
-        "philo.h": "c"
+        "philo.h": "c",
+        "string": "c",
+        "string_view": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "semaphore.h": "c",
+        "fcntl.h": "c"
     }
 }

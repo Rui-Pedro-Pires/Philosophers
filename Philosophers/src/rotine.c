@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:31:19 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/10 10:06:48 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:43:23 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	eating(t_philo *philo)
 
 	lock_forks(philo);
 	if (get_bool(&philo->data->info, &philo->data->finish) == true || \
-	get_info_int(&philo->philo, &philo->status) == DEAD
-		|| get_info_long(&philo->philo, &philo->number_of_meal) == \
-	philo->data->number_of_times_to_eat)
+	get_info_int(&philo->philo, &philo->status) == DEAD)
 		return (unlock_forks(philo));
 	set_info_long(&philo->data->info, &current_time, \
 		get_info_long(&philo->data->info, &philo->data->current_time));
