@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/11 17:43:49 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:14:40 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_philo	*init_philos(t_data *data)
 		philos[n].data = data;
 		philos[n].number_of_meal = 0;
 		philos[n].status = ALIVE;
+		philos[n].last_meal = gettime();
 		pthread_mutex_init(&philos[n].left_fork, NULL);
 		pthread_mutex_init(&philos[n].philo, NULL);
 		if (n == data->numbers_of_philosophers - 1)
