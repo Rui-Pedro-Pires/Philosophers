@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/10 09:55:46 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:43:49 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,16 @@ int	init_threads(t_philo *philos)
 	n = 0;
 	if (philos->data->numbers_of_philosophers == 1)
 		return (mono_philo(philos));
-	philos->data->current_time = gettime();
 	philos->data->start_time = gettime();
 	while (n < philos->data->numbers_of_philosophers)
 	{
-		set_info_long(&philos[n].philo, &philos[n].last_meal, \
-			get_info_long(&philos->data->info, &philos->data->current_time));
 		if (pthread_create(&philos[n].ph, NULL, &rotine, &philos[n]) != 0)
 			return (2);
 		n++;
 	}
-	set_bool(&philos->data->info, &philos->data->done, true);
+	set_info_long(&philos->data->info, \
+			&philos->data->start_time, gettime());
 	while (get_bool(&philos->data->info, &philos->data->finish) == false)
-	{
-		set_info_long(&philos->data->info, \
-			&philos->data->current_time, gettime());
 		monitoring(philos);
-	}
 	return (0);
 }
