@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:10:03 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/11 17:37:48 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:31:55 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	monitoring(t_philo *philos)
 
 	n = 0;
 	count = 0;
+	ft_usleep(10);
 	while (n < philos->data->numbers_of_philosophers)
 	{
 		diff_time = gettime() - get_info_long(&philos->data->info, \

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:51:27 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/10 11:24:47 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:26:36 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 typedef struct s_data
 {
 	long long		start_time;
-	long long		current_time;
 	int				numbers_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
