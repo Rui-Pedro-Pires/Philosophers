@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:51:50 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/11 16:59:35 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:21:59 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 	data = init_data(argc, argv);
 	philos = init_philos(&data);
 	init_processes(philos);
+	sleep(1);
 	free(philos);
 	sem_unlink(FORK);
 	sem_unlink(DIED);

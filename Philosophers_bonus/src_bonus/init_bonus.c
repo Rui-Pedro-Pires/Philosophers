@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:27:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/12 14:21:23 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:21:54 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ int	init_processes(t_philo *philos)
 			break ;
 		}
 	}
-	sleep(1);
 	return (0);
 }
