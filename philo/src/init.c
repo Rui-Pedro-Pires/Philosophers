@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/12 15:02:34 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:06:53 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_philo	*init_philos(t_data *data)
 		philos[n].number_of_meal = 0;
 		philos[n].status = ALIVE;
 		philos[n].last_meal = gettime();
+		philos[n].start_time = gettime();
 		pthread_mutex_init(&philos[n].left_fork, NULL);
 		pthread_mutex_init(&philos[n].philo, NULL);
 		if (n == data->numbers_of_philosophers - 1)
@@ -64,15 +65,13 @@ int	init_threads(t_philo *philos)
 	n = 0;
 	if (philos->data->numbers_of_philosophers == 1)
 		return (mono_philo(philos));
-	philos->data->start_time = gettime();
 	while (n < philos->data->numbers_of_philosophers)
 	{
 		if (pthread_create(&philos[n].ph, NULL, &rotine, &philos[n]) != 0)
 			return (2);
 		n++;
 	}
-	set_info_long(&philos->data->info, \
-			&philos->data->start_time, gettime());
+	set_bool(&philos->data->info, &philos->data->done, true);
 	while (get_bool(&philos->data->info, &philos->data->finish) == false)
 		monitoring(philos);
 	return (0);

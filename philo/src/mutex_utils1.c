@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:12:57 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/11 09:45:09 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:13:11 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_bool(pthread_mutex_t *mutex, bool *value, bool info)
 
 void	lock_forks(t_philo *philo)
 {
-	if (philo->id % 2 != 0)
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(&philo->left_fork);

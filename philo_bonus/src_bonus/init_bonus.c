@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:27:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/12 15:21:54 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:51:51 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_philo	*init_philos(t_data *data)
 		philos[i].id = i + 1;
 		philos[i].value = 0;
 		philos[i].finish = false;
+		philos[i].done = false;
 		philos[i].number_of_meal = 0;
 		i++;
 	}

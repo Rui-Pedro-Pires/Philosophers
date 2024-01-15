@@ -5,8 +5,7 @@ SRC = ./src_bonus/init_bonus.c ./src_bonus/philo_bonus.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra
-
+CFLAGS = -pthread -Wall -Werror -Wextra -fsanitize=thread
 
 CC = cc
 

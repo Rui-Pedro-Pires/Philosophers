@@ -16,6 +16,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "Compiling objects"
+	@echo "Creating program philo"
 
 clean:
 	$(RM) $(OBJ)

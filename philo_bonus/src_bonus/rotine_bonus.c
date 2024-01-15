@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:58:54 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/12 15:06:25 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:56:34 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	*rotine(void *arg)
 
 	philo = (t_philo *)arg;
 	set_info_long(philo->info, &philo->last_meal, gettime());
-	thinking(philo);
 	while (get_bool(philo->info, &philo->finish) == false)
 	{
-		eating(philo);
-		sleeping(philo);
 		thinking(philo);
+		eating(philo);
+		if (get_bool(philo->info, &philo->done) == true)
+			return (NULL);
+		sleeping(philo);
 	}
 	return (NULL);
 }
@@ -39,7 +40,8 @@ int	process(t_philo *philo)
 	philo->last_meal = gettime();
 	philo->start_time = gettime();
 	pthread_create(&ph, NULL, &rotine, philo);
-	while (get_bool(philo->info, &philo->finish) == false)
+	while (get_bool(philo->info, &philo->finish) == false \
+	&& get_bool(philo->info, &philo->done) == false)
 		monitoring(philo);
 	pthread_join(ph, NULL);
 	sem_close(philo->info);
@@ -73,8 +75,8 @@ void	sleeping(t_philo *philo)
 {
 	long long	time;
 
-	if (get_bool(philo->info, &philo->finish) == true || \
-		get_info_int(philo->info, &philo->status) != EATING)
+	if (get_info_int(philo->info, &philo->status) != EATING && \
+	get_bool(philo->info, &philo->finish) == true)
 		return ;
 	time = gettime() - get_info_long(philo->info, &philo->start_time);
 	sem_wait(philo->died);
@@ -88,12 +90,13 @@ void	thinking(t_philo *philo)
 {
 	long long	time;
 
-	if (get_bool(philo->info, &philo->finish) == true || \
-		get_info_int(philo->info, &philo->status) == THINKING)
+	if (get_info_int(philo->info, &philo->status) == THINKING && \
+	get_bool(philo->info, &philo->finish) == true)
 		return ;
 	time = gettime() - get_info_long(philo->info, &philo->start_time);
 	sem_wait(philo->died);
 	printf("%lld %d is thinking\n", time, philo->id);
 	sem_post(philo->died);
 	set_info_int(philo->info, &philo->status, THINKING);
+	ft_usleep(1);
 }
