@@ -4,7 +4,7 @@ SRC = ./src/finex.c ./src/philo.c ./src/rotine.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -pthread -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS = -pthread -Wall -Werror -Wextra 
 
 CC = cc
 
