@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:05:17 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/15 11:06:53 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:51:26 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ t_data	init_data(int argc, char **argv)
 	data.done = false;
 	pthread_mutex_init(&data.info, NULL);
 	if (argc == 6)
+	{
 		data.number_of_times_to_eat = ft_atoi(argv[5]);
+		if (data.number_of_times_to_eat == 0)
+			exit(EXIT_SUCCESS);
+	}
 	else
 		data.number_of_times_to_eat = -1;
 	return (data);

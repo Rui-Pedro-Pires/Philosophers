@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:52:22 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/15 10:51:16 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:18:22 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_data		init_data(int argc, char **argv);
 t_philo		*init_philos(t_data *data);
 int			process(t_philo *philo);
 int			init_processes(t_philo *philos);
+void		mono_process(t_data *data);
 
 ///////////////////////////
 ///   ROTINE FUCTIONS   ///
@@ -93,6 +94,7 @@ int			ft_usleep(long long milliseconds);
 
 int			dead_print(t_philo *philo, int id);
 int			monitoring(t_philo *philo);
+int			checker(char **argv);
 
 //////////////////////////////
 ///   SEMAPHORE FUCTIONS   ///

@@ -6,14 +6,10 @@ bonus:
 
 clean:
 	@make clean -C ./philo -s
-
-fclean:
-	@make fclean -C ./philo -s
-
-clean_bonus:
 	@make clean -C ./philo_bonus -s
 
-fclean_bonus:
+fclean: clean
+	@make fclean -C ./philo -s
 	@make fclean -C ./philo_bonus -s
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:27:48 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/15 10:51:51 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:24:58 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_philo	*init_philos(t_data *data)
 
 int	init_processes(t_philo *philos)
 {
-	int			check_return;
 	int			i;
 
 	i = -1;
@@ -73,8 +72,7 @@ int	init_processes(t_philo *philos)
 	i = -1;
 	while (1)
 	{
-		check_return = waitpid(-1, NULL, WNOHANG);
-		if (check_return != 0)
+		if (waitpid(-1, NULL, WNOHANG) != 0)
 		{
 			while (++i < philos->data->numbers_of_philosophers - 1)
 				kill (philos[i].pid, SIGINT);
@@ -82,4 +80,19 @@ int	init_processes(t_philo *philos)
 		}
 	}
 	return (0);
+}
+
+void	mono_process(t_data *data)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		printf("%d %d has taken a fork\n", 0, 1);
+		ft_usleep(data->time_to_die);
+		printf("%d %d died\n", data->time_to_die, 1);
+	}
+	waitpid(pid, NULL, 0);
+	exit(1);
 }

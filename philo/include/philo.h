@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:51:27 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/15 11:09:16 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:34:05 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			init_threads(t_philo *philos);
 ///////////////////////////
 
 void		*rotine(void *arg);
+void		*mono_rotine(void *data);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);

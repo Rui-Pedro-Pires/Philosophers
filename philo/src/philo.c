@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:55:32 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/10 10:17:55 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:39:27 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (1);
 	if (argv[1][0] == '0')
+	{
+		printf("Error: the number of philosophers need to be 1 or more");
 		return (2);
+	}
 	if (!checker(argv + 1))
 	{
 		printf("Error: Wrong format\n");

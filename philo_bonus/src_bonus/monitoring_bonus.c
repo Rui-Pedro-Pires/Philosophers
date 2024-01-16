@@ -6,7 +6,7 @@
 /*   By: ruiolive <ruiolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 09:59:14 by ruiolive          #+#    #+#             */
-/*   Updated: 2024/01/15 12:21:38 by ruiolive         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:18:03 by ruiolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,19 @@ int	monitoring(t_philo *philo)
 	if (get_info_long(philo->info, \
 		&philo->number_of_meal) == philo->data->number_of_times_to_eat)
 		set_bool(philo->info, &philo->done, true);
+	return (1);
+}
+
+int	checker(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (ft_atoi(argv[i]) == -1)
+			return (0);
+		i++;
+	}
 	return (1);
 }
