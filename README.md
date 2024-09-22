@@ -1,7 +1,7 @@
 # Philosophers Project - "I never thought philosophy would be so deadly"
 
 ## Project Overview
-This project simulates the **Dining Philosophers Problem** using threads and mutexes (in the mandatory part) and processes with semaphores (in the bonus part). The challenge was to ensure that philosophers can eat without conflicts and avoid starving by carefully managing shared resources (forks).
+This project simulates the **Dining Philosophers Problem** using threads and mutexes (in the first version) and processes with semaphores (in the second version). The challenge was to ensure that philosophers can eat without conflicts and avoid starving by carefully managing shared resources (forks).
 
 ## Design and Development
 ### 1. **Threads and Mutexes**
@@ -19,7 +19,7 @@ To avoid situations where philosophers could lock up the system by holding one f
 - **Simultaneous Logging:** Used a mutex to prevent philosophers from writing to the log at the same time, ensuring clear output.
 
 ## Bonus Part
-For the bonus, I replaced threads with processes and used semaphores to manage the forks. Semaphores handle shared resources between processes, which required changes in how philosophers interact with the forks.
+For the second version, I replaced threads with processes and used semaphores to manage the forks. Semaphores handle shared resources between processes, which required changes in how philosophers interact with the forks.
 
 ## How to Compile and Run
 
@@ -44,7 +44,3 @@ This runs a simulation with 5 philosophers where:
 - Time to die = 800ms
 - Time to eat = 200ms
 - Time to sleep = 200ms
-
----
-
-This version is simplified, yet covers the essential elements of your project’s development, design decisions, challenges, and how to run the program.
