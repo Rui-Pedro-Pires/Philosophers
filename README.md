@@ -21,6 +21,16 @@ To avoid situations where philosophers could lock up the system by holding one f
 ## Bonus Part
 For the second version, I replaced threads with processes and used semaphores to manage the forks. Semaphores handle shared resources between processes, which required changes in how philosophers interact with the forks.
 
+## Installation
+1. Clone my repository:
+   ```bash
+   git clone git@github.com:Rui-Pedro-Pires/42Mini_Talk.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd 42Philosophers
+   ```
+
 ## How to Compile and Run
 
 ### Compilation
