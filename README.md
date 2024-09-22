@@ -24,7 +24,7 @@ For the second version, I replaced threads with processes and used semaphores to
 ## Installation
 1. Clone my repository:
    ```bash
-   git clone git@github.com:Rui-Pedro-Pires/42Mini_Talk.git
+   git clone git@github.com:Rui-Pedro-Pires/42Philosophers.git
    ```
 2. Navigate to the project directory:
    ```bash
